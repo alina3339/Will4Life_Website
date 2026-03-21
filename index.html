@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will4Life — Securing Clarity for Your Family's Future</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky-pale: #e8f1f8;
+    --sky: #d0e4f2;
+    --sky-mid: #a8cce3;
+    --sky-deep: #6a9fc4;
+    --sky-darker: #5890b5;
+    --horizon-warm: #f5dcc0;
+    --sunrise-glow: #f0c67a;
+    --text-dark: #2a3a4a;
+    --text-mid: #5a7085;
+    --text-light: #8299ad;
+    --white: #ffffff;
+    --card-bg: rgba(255,255,255,0.7);
+    --amber: #d4953a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    color: var(--text-dark);
+    background: var(--sky-pale);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(232,241,248,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(106,159,196,0.15);
+    animation: slideDown 0.8s ease;
+  }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--text-dark); }
+  .logo span { color: var(--sky-deep); }
+  .nav-cta {
+    background: var(--sky-deep); color: var(--white);
+    padding: 0.6rem 1.5rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600; font-size: 0.85rem;
+    transition: all 0.3s ease;
+  }
+  .nav-cta:hover { background: var(--sky-darker); transform: translateY(-1px); box-shadow: 0 4px 15px rgba(106,159,196,0.35); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    background: linear-gradient(180deg, var(--sky-pale) 0%, var(--sky) 40%, var(--sky-mid) 70%, var(--horizon-warm) 90%, var(--sunrise-glow) 100%);
+  }
+  .hero-clouds { position: absolute; inset: 0; pointer-events: none; }
+  .cloud { position: absolute; background: rgba(255,255,255,0.4); border-radius: 50%; filter: blur(30px); }
+  .cloud-1 { width: 300px; height: 80px; top: 12%; left: 5%; animation: cloudDrift 25s linear infinite; }
+  .cloud-2 { width: 200px; height: 60px; top: 20%; right: 10%; animation: cloudDrift 30s linear infinite reverse; }
+  .cloud-3 { width: 250px; height: 70px; top: 8%; left: 40%; animation: cloudDrift 35s linear infinite; opacity: 0.5; }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    padding: 7rem 2rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 3rem; position: relative; z-index: 2;
+  }
+  .hero-text { animation: fadeUp 1s ease 0.3s both; }
+  .hero-badge {
+    display: inline-block; background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(106,159,196,0.3);
+    padding: 0.45rem 1.2rem; border-radius: 50px;
+    font-size: 0.72rem; color: var(--sky-deep);
+    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;
+    margin-bottom: 1.8rem;
+  }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--text-dark); line-height: 1.15; font-weight: 700; margin-bottom: 1.2rem; }
+  .hero h1 em { color: var(--sky-deep); font-style: italic; }
+  .hero-subtitle { font-size: 1.05rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 2rem; max-width: 480px; }
+  .hero-cta {
+    display: inline-block; background: var(--sky-deep); color: var(--white);
+    padding: 0.95rem 2.4rem; font-size: 0.95rem; font-weight: 700;
+    border-radius: 50px; text-decoration: none; transition: all 0.35s ease;
+    box-shadow: 0 4px 20px rgba(106,159,196,0.3);
+  }
+  .hero-cta:hover { background: var(--sky-darker); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(106,159,196,0.4); }
+
+  /* POETRY CARD */
+  .hero-illustration { display: flex; justify-content: center; align-items: center; animation: fadeUp 1s ease 0.6s both; }
+  .poetry-card {
+    width: 100%; max-width: 440px;
+    background: rgba(255,255,255,0.45); backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.6); border-radius: 24px;
+    padding: 3rem 2.5rem; position: relative; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(106,159,196,0.1), 0 1px 3px rgba(255,255,255,0.5) inset;
+  }
+  .poetry-card::before { content: '\201C'; position: absolute; top: -10px; left: 16px; font-family: 'Cormorant Garamond', serif; font-size: 8rem; line-height: 1; color: rgba(106,159,196,0.1); pointer-events: none; }
+  .poetry-card::after { content: ''; position: absolute; top: 0; left: 2rem; right: 2rem; height: 2px; background: linear-gradient(90deg, transparent, var(--sky-mid), var(--sky-deep), var(--sky-mid), transparent); opacity: 0.5; }
+  .poetry-lines { position: relative; z-index: 1; list-style: none; }
+  .poetry-line { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; font-weight: 500; color: var(--text-dark); line-height: 1.85; opacity: 0; transform: translateY(12px); animation: lineReveal 0.7s ease forwards; }
+  .poetry-line:nth-child(1) { animation-delay: 1.0s; }
+  .poetry-line:nth-child(2) { animation-delay: 1.5s; }
+  .poetry-line:nth-child(3) { animation-delay: 2.0s; }
+  .poetry-line:nth-child(4) { animation-delay: 2.5s; }
+  .poetry-line:nth-child(5) { animation-delay: 3.2s; }
+  .poetry-line:nth-child(6) { animation-delay: 3.7s; }
+  .poetry-line:nth-child(7) { animation-delay: 4.2s; }
+  .poetry-line:nth-child(8) { animation-delay: 4.7s; }
+  .poetry-line.stanza-break { height: 1.2rem; animation: none; opacity: 1; transform: none; }
+  @keyframes lineReveal { to { opacity: 1; transform: translateY(0); } }
+  .poetry-line em { font-style: italic; color: var(--sky-deep); }
+  .poetry-attribution { margin-top: 1.8rem; padding-top: 1.2rem; border-top: 1px solid rgba(106,159,196,0.15); display: flex; align-items: center; gap: 0.8rem; opacity: 0; animation: lineReveal 0.7s ease 5.5s forwards; }
+  .poetry-flourish { width: 32px; height: 32px; background: rgba(106,159,196,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+  .poetry-source { font-size: 0.8rem; color: var(--text-light); line-height: 1.4; }
+  .poetry-source strong { color: var(--text-mid); display: block; font-weight: 600; }
+  .poetry-dot { position: absolute; border-radius: 50%; background: rgba(106,159,196,0.08); pointer-events: none; }
+  .poetry-dot-1 { width: 80px; height: 80px; top: -20px; right: -15px; }
+  .poetry-dot-2 { width: 50px; height: 50px; bottom: 20px; left: -10px; }
+  .poetry-dot-3 { width: 30px; height: 30px; bottom: -8px; right: 40px; }
+
+  /* TRUST STRIP */
+  .trust-strip { background: var(--text-dark); padding: 2.5rem 2rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+  .trust-item { text-align: center; }
+  .trust-number { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; color: var(--sky-mid); }
+  .trust-label { font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 0.2rem; }
+
+  /* SHARED */
+  .section-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--sky-deep); margin-bottom: 0.8rem; font-weight: 700; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--text-dark); margin-bottom: 0.8rem; line-height: 1.25; }
+  .section-subtitle { color: var(--text-mid); font-size: 1rem; line-height: 1.7; max-width: 560px; margin-bottom: 3rem; }
+
+  /* URGENCY */
+  .urgency-section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .urgency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 2.5rem; }
+  .urgency-card { background: var(--white); border-radius: 16px; padding: 2rem; border-left: 4px solid var(--amber); box-shadow: 0 8px 30px rgba(42,58,74,0.06); }
+  .urgency-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
+  .urgency-card p { color: var(--text-mid); font-size: 0.9rem; line-height: 1.65; }
+  .urgency-stats { display: flex; flex-direction: column; gap: 1.5rem; }
+  .stat-row { display: flex; align-items: center; gap: 1.2rem; }
+  .stat-circle { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--sky), var(--sky-mid)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .stat-circle span { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); }
+  .stat-text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.5; }
+  .stat-text strong { color: var(--text-dark); }
+
+  /* SERVICES */
+  .services-section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .service-card { background: var(--card-bg); backdrop-filter: blur(8px); border: 1px solid rgba(106,159,196,0.12); border-radius: 16px; padding: 2rem; transition: all 0.35s ease; position: relative; overflow: hidden; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--sky-mid), var(--sky-deep)); opacity: 0; transition: opacity 0.35s ease; }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(106,159,196,0.12); background: rgba(255,255,255,0.9); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--sky), var(--sky-mid)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; font-size: 1.4rem; }
+  .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.6rem; }
+  .service-card p { color: var(--text-mid); font-size: 0.88rem; line-height: 1.65; }
+  .featured-service { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; overflow: hidden; }
+  .featured-left { background: linear-gradient(135deg, var(--sky-deep), #4e86aa); padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .featured-left .service-icon { background: rgba(255,255,255,0.15); }
+  .featured-left h3 { color: var(--white); font-size: 1.4rem; }
+  .featured-left p { color: rgba(255,255,255,0.75); }
+  .featured-right { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .featured-right p { color: var(--text-mid); font-size: 0.88rem; line-height: 1.65; }
+  .featured-tag { display: inline-block; background: rgba(255,255,255,0.2); padding: 0.3rem 0.9rem; border-radius: 50px; font-size: 0.7rem; color: var(--white); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; width: fit-content; }
+
+  /* CTA BAND */
+  .cta-band { background: linear-gradient(135deg, var(--sky-deep), #4e86aa); padding: 3.5rem 2rem; text-align: center; position: relative; overflow: hidden; }
+  .cta-band::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%); }
+  .cta-band-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 2; }
+  .cta-band h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 3.5vw, 2rem); color: var(--white); margin-bottom: 0.6rem; font-weight: 700; }
+  .cta-band p { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 1.8rem; line-height: 1.6; }
+  .cta-band-btn { display: inline-block; background: var(--white); color: var(--sky-deep); padding: 0.9rem 2.2rem; font-size: 0.95rem; font-weight: 700; border-radius: 50px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+  .cta-band-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+
+  /* HOW IT WORKS */
+  .process-section { background: linear-gradient(180deg, var(--sky-pale), var(--sky)); padding: 6rem 2rem; }
+  .process-inner { max-width: 1100px; margin: 0 auto; }
+  .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .step-card { text-align: center; background: var(--card-bg); backdrop-filter: blur(8px); border: 1px solid rgba(106,159,196,0.1); border-radius: 16px; padding: 2.2rem 1.5rem; position: relative; }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; color: rgba(106,159,196,0.2); line-height: 1; margin-bottom: 0.8rem; }
+  .step-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
+  .step-card p { color: var(--text-mid); font-size: 0.85rem; line-height: 1.6; }
+  .step-card:not(:last-child)::after { content: '→'; position: absolute; right: -1.3rem; top: 50%; transform: translateY(-50%); color: var(--sky-mid); font-size: 1.3rem; }
+
+  /* TESTIMONIALS */
+  .testimonials-section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .testimonial-card { background: var(--white); border: 1px solid rgba(106,159,196,0.08); border-radius: 16px; padding: 2rem; box-shadow: 0 8px 30px rgba(42,58,74,0.04); transition: all 0.3s ease; }
+  .testimonial-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(42,58,74,0.08); }
+  .testimonial-stars { color: var(--amber); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 1rem; }
+  .testimonial-card blockquote { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--text-dark); line-height: 1.7; margin-bottom: 1.3rem; }
+  .testimonial-author { display: flex; align-items: center; gap: 0.8rem; padding-top: 1rem; border-top: 1px solid rgba(106,159,196,0.08); }
+  .author-avatar { width: 40px; height: 40px; background: linear-gradient(135deg, var(--sky), var(--sky-mid)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 700; color: var(--text-dark); }
+  .author-info { font-size: 0.82rem; color: var(--text-mid); line-height: 1.4; }
+  .author-info strong { color: var(--text-dark); display: block; }
+
+  /* FAQ */
+  .faq-section { background: linear-gradient(180deg, var(--sky-pale), var(--sky)); padding: 6rem 2rem; }
+  .faq-inner { max-width: 760px; margin: 0 auto; }
+  .faq-item { background: var(--white); border: 1px solid rgba(106,159,196,0.1); border-radius: 12px; margin-bottom: 0.8rem; overflow: hidden; }
+  .faq-question { width: 100%; text-align: left; padding: 1.3rem 1.5rem; background: none; border: none; font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text-dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: color 0.3s ease; }
+  .faq-question:hover { color: var(--sky-deep); }
+  .faq-icon { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--sky-pale); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: var(--sky-deep); transition: all 0.3s ease; }
+  .faq-item.open .faq-icon { background: var(--sky-deep); color: var(--white); transform: rotate(45deg); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding: 0 1.5rem; }
+  .faq-item.open .faq-answer { max-height: 300px; padding: 0 1.5rem 1.3rem; }
+  .faq-answer p { color: var(--text-mid); font-size: 0.88rem; line-height: 1.7; }
+
+  /* FORM */
+  .form-section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .form-text p { color: var(--text-mid); line-height: 1.7; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .promise-row { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.9rem 0; border-top: 1px solid rgba(106,159,196,0.1); }
+  .promise-row:first-of-type { margin-top: 0.5rem; }
+  .promise-check { flex-shrink: 0; width: 26px; height: 26px; background: rgba(106,159,196,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--sky-deep); font-size: 0.7rem; font-weight: 700; }
+  .promise-row p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; margin: 0; }
+  .promise-row strong { color: var(--text-dark); }
+  .form-card { background: var(--white); border-radius: 20px; padding: 2.5rem; position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(106,159,196,0.1); border: 1px solid rgba(106,159,196,0.08); }
+  .form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--sky-mid), var(--sky-deep), var(--sky-mid)); }
+  .form-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.3rem; }
+  .form-card > p { color: var(--text-light); font-size: 0.85rem; margin-bottom: 1.8rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.35rem; }
+  .form-group input, .form-group select { width: 100%; padding: 0.8rem 1rem; border: 1px solid rgba(106,159,196,0.2); border-radius: 10px; font-family: 'Nunito Sans', sans-serif; font-size: 0.92rem; color: var(--text-dark); background: var(--sky-pale); transition: all 0.3s ease; outline: none; -webkit-appearance: none; }
+  .form-group input::placeholder { color: #a0b5c5; }
+  .form-group input:focus, .form-group select:focus { border-color: var(--sky-deep); background: var(--white); box-shadow: 0 0 0 3px rgba(106,159,196,0.12); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .submit-btn { width: 100%; padding: 0.95rem; background: var(--sky-deep); color: var(--white); border: none; border-radius: 10px; font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.35s ease; margin-top: 0.5rem; }
+  .submit-btn:hover { background: var(--sky-darker); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(106,159,196,0.3); }
+  .form-note { text-align: center; font-size: 0.72rem; color: var(--text-light); margin-top: 1rem; }
+  .form-consent { display: flex; align-items: flex-start; gap: 0.6rem; margin-top: 0.8rem; margin-bottom: 0.5rem; }
+  .form-consent input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--sky-deep); }
+  .form-consent label { font-size: 0.78rem; color: var(--text-light); line-height: 1.4; font-weight: 400; }
+  .form-consent a { color: var(--sky-deep); cursor: pointer; }
+  .form-success { display: none; text-align: center; padding: 2rem 0; }
+  .form-success.show { display: block; animation: fadeUp 0.5s ease; }
+  .success-icon { width: 64px; height: 64px; background: rgba(74,154,106,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-size: 1.8rem; }
+  .form-success h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--text-dark); margin-bottom: 0.5rem; }
+  .form-success p { color: var(--text-mid); font-size: 0.88rem; line-height: 1.6; }
+
+  /* FINAL CTA */
+  .final-cta { background: var(--text-dark); padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden; }
+  .final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 100%, rgba(106,159,196,0.1) 0%, transparent 60%); }
+  .final-cta-inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 2; }
+  .final-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--white); margin-bottom: 0.8rem; font-weight: 700; line-height: 1.3; }
+  .final-cta p { color: rgba(255,255,255,0.55); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; }
+  .final-cta-btn { display: inline-block; background: var(--sky-deep); color: var(--white); padding: 1rem 2.8rem; font-size: 1rem; font-weight: 700; border-radius: 50px; text-decoration: none; transition: all 0.35s ease; box-shadow: 0 4px 20px rgba(106,159,196,0.3); }
+  .final-cta-btn:hover { background: var(--sky-mid); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(106,159,196,0.4); }
+
+  /* FOOTER */
+  footer { background: var(--text-dark); padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(106,159,196,0.08); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 0.4rem; }
+  .footer-logo span { color: var(--sky-mid); }
+  .footer-caption { font-family: 'Cormorant Garamond', serif; font-style: italic; color: rgba(255,255,255,0.3); font-size: 0.88rem; margin-bottom: 1.5rem; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.82rem; transition: color 0.3s ease; }
+  .footer-links a:hover { color: var(--sky-mid); }
+  .footer-policy-links { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-policy-links a { color: rgba(255,255,255,0.28); text-decoration: none; font-size: 0.75rem; cursor: pointer; transition: color 0.3s ease; }
+  .footer-policy-links a:hover { color: var(--sky-mid); }
+  .footer-copy { color: rgba(255,255,255,0.18); font-size: 0.75rem; }
+
+  /* MODALS */
+  .policy-modal { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(42,58,74,0.6); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 2rem; }
+  .policy-modal.open { display: flex; animation: modalFadeIn 0.3s ease; }
+  @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .policy-content { background: var(--white); border-radius: 16px; max-width: 720px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 2.5rem; position: relative; box-shadow: 0 30px 80px rgba(0,0,0,0.15); animation: modalSlideUp 0.35s ease; }
+  @keyframes modalSlideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .policy-close { position: sticky; top: 0; float: right; width: 36px; height: 36px; background: var(--sky-pale); border: 1px solid rgba(106,159,196,0.15); border-radius: 50%; font-size: 1.1rem; color: var(--text-mid); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; z-index: 2; }
+  .policy-close:hover { background: var(--sky); color: var(--text-dark); }
+  .policy-content h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.3rem; padding-right: 2.5rem; }
+  .policy-date { font-size: 0.78rem; color: var(--text-light); margin-bottom: 1.8rem; }
+  .policy-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin-top: 1.8rem; margin-bottom: 0.5rem; }
+  .policy-content p { color: var(--text-mid); font-size: 0.88rem; line-height: 1.7; margin-bottom: 0.8rem; }
+  .policy-content ul { color: var(--text-mid); font-size: 0.88rem; line-height: 1.7; margin: 0.4rem 0 0.8rem 1.4rem; }
+  .policy-content li { margin-bottom: 0.3rem; }
+  .policy-content strong { color: var(--text-dark); }
+
+  /* ANIMATIONS */
+  @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes fadeUp { from { transform: translateY(28px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes cloudDrift { 0% { transform: translateX(0); } 100% { transform: translateX(80px); } }
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; padding-top: 7rem; }
+    .hero-subtitle { margin-left: auto; margin-right: auto; }
+    .hero-illustration { order: -1; }
+    .poetry-card { max-width: 340px; padding: 2rem 1.5rem; }
+    nav { padding: 0.9rem 1.2rem; }
+    .logo { font-size: 1.3rem; }
+    .nav-cta { padding: 0.5rem 1rem; font-size: 0.8rem; }
+    .urgency-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .featured-service { grid-template-columns: 1fr; }
+    .form-section { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .steps-row { grid-template-columns: 1fr; }
+    .step-card::after { display: none !important; }
+    .services-section, .testimonials-section { padding: 4rem 1.5rem; }
+    .process-section, .faq-section { padding: 4rem 1.5rem; }
+    .form-card { padding: 1.8rem; }
+    .trust-strip { gap: 2rem; padding: 2rem 1rem; }
+  }
+  @media (max-width: 600px) {
+    .policy-content { padding: 1.5rem; }
+    .policy-modal { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Will<span>4</span>Life</div>
+  <a href="#book" class="nav-cta">Book Appointment</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-clouds">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">Professional Will Writing &amp; Estate Planning</div>
+      <h1>Securing <em>Clarity</em> for Your Family's Future</h1>
+      <p class="hero-subtitle">Protecting your wishes. Securing certainty in your family's future with clarity. Book a confidential one-to-one with our professional will writer.</p>
+      <a href="#book" class="hero-cta">Book a Confidential Appointment</a>
+    </div>
+    <div class="hero-illustration">
+      <div class="poetry-card">
+        <div class="poetry-dot poetry-dot-1"></div>
+        <div class="poetry-dot poetry-dot-2"></div>
+        <div class="poetry-dot poetry-dot-3"></div>
+        <ul class="poetry-lines">
+          <li class="poetry-line">We build our nests with <em>love</em> and care,</li>
+          <li class="poetry-line">and fill them with the ones we hold dear.</li>
+          <li class="poetry-line">But time moves on, as seasons do —</li>
+          <li class="poetry-line">the ones we cherish <em>need to know</em>.</li>
+          <li class="poetry-line stanza-break"></li>
+          <li class="poetry-line">That every wish you carry inside,</li>
+          <li class="poetry-line">is written down, with <em>nothing left to chance</em>.</li>
+          <li class="poetry-line">A Will is not about goodbye —</li>
+          <li class="poetry-line">it's how your <em>love</em> lives on.</li>
+        </ul>
+        <div class="poetry-attribution">
+          <div class="poetry-flourish">🕊️</div>
+          <div class="poetry-source"><strong>Will4Life</strong>Where there is a Will, there is a Way</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item"><div class="trust-number">2,500+</div><div class="trust-label">Wills Written</div></div>
+  <div class="trust-item"><div class="trust-number">15+</div><div class="trust-label">Years Experience</div></div>
+  <div class="trust-item"><div class="trust-number">98%</div><div class="trust-label">Client Satisfaction</div></div>
+  <div class="trust-item"><div class="trust-number">£0</div><div class="trust-label">Consultation Fee</div></div>
+</div>
+
+<!-- URGENCY -->
+<section class="urgency-section">
+  <div class="reveal">
+    <div class="section-label">Why It Matters</div>
+    <h2 class="section-title">Don't Leave Your Family's Future to Chance</h2>
+    <p class="section-subtitle">Without a valid Will, the law decides who inherits your assets — not you. Here's why taking action now is so important.</p>
+  </div>
+  <div class="urgency-grid">
+    <div class="urgency-stats reveal">
+      <div class="stat-row">
+        <div class="stat-circle"><span>54%</span></div>
+        <div class="stat-text"><strong>Over half of UK adults</strong> don't have a Will — leaving their families unprotected and facing uncertainty.</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-circle"><span>£9.2b</span></div>
+        <div class="stat-text"><strong>Billions in unclaimed assets</strong> are held by the government because people passed away without a Will.</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-circle"><span>0%</span></div>
+        <div class="stat-text"><strong>Unmarried partners inherit nothing</strong> under intestacy rules — no matter how long you've been together.</div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:1.2rem;">
+      <div class="urgency-card reveal">
+        <h3>🛡️ Protect Your Loved Ones</h3>
+        <p>A Will ensures your partner, children, and family are looked after exactly the way you want — with no room for dispute.</p>
+      </div>
+      <div class="urgency-card reveal">
+        <h3>👶 Choose Guardians for Your Children</h3>
+        <p>If you have children under 18, a Will is the only legal way to choose who would look after them.</p>
+      </div>
+      <div class="urgency-card reveal">
+        <h3>🏠 Secure Your Home &amp; Assets</h3>
+        <p>Your home is likely your biggest asset. Without a Will, it could end up in the wrong hands or tied up in legal battles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <h2>It Takes Just 30 Minutes to Protect a Lifetime</h2>
+    <p>Most people are surprised how quick and simple the process is. Book your free consultation today.</p>
+    <a href="#book" class="cta-band-btn">Book Your Free Appointment</a>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="reveal">
+    <div class="section-label">Our Services</div>
+    <h2 class="section-title">Protecting What Matters Most</h2>
+    <p class="section-subtitle">From writing your Will to planning your estate, we provide clear, professional guidance every step of the way.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card featured-service reveal">
+      <div class="featured-left">
+        <div class="featured-tag">Core Service</div>
+        <div class="service-icon">📜</div>
+        <h3>Professional Will Writing</h3>
+        <p>Your Will is the foundation of your family's security. We make the process simple, clear, and thorough.</p>
+      </div>
+      <div class="featured-right">
+        <p>Every Will is personally drafted by our qualified will writer, tailored to your specific circumstances. We explain everything in plain English — no confusing legal terms, just straightforward guidance to make sure your wishes are properly recorded and legally binding.</p>
+      </div>
+    </div>
+    <div class="service-card reveal"><div class="service-icon">🤝</div><h3>Power of Attorney</h3><p>Choose someone you trust to make decisions on your behalf if you're ever unable to — covering finances, property, and health.</p></div>
+    <div class="service-card reveal"><div class="service-icon">🏛️</div><h3>Trust Planning &amp; Probate Support</h3><p>Set up trusts to protect assets and let us guide your family through the probate process with care and clarity.</p></div>
+    <div class="service-card reveal"><div class="service-icon">🏡</div><h3>Estate Planning</h3><p>A complete look at your assets, property, and wishes — so everything is organised and your family knows where they stand.</p></div>
+    <div class="service-card reveal"><div class="service-icon">💰</div><h3>Inheritance Tax Support</h3><p>Understand how inheritance tax affects your estate and explore practical ways to reduce the burden on your loved ones.</p></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="process-section">
+  <div class="process-inner">
+    <div class="reveal">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Three Simple Steps</h2>
+      <p class="section-subtitle">No jargon. No pressure. Just clear, personal guidance from start to finish.</p>
+    </div>
+    <div class="steps-row reveal">
+      <div class="step-card"><div class="step-num">01</div><h3>Book Your Appointment</h3><p>Fill in the form below. We'll arrange a confidential one-to-one at a time that suits you.</p></div>
+      <div class="step-card"><div class="step-num">02</div><h3>Talk Through Your Wishes</h3><p>We sit down together and go through everything — your situation, your family, your wishes.</p></div>
+      <div class="step-card"><div class="step-num">03</div><h3>Documents Drafted &amp; Signed</h3><p>Your documents are professionally prepared, reviewed with you, signed, and securely stored.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="reveal">
+    <div class="section-label">What Our Clients Say</div>
+    <h2 class="section-title">Trusted by Families Across the UK</h2>
+    <p class="section-subtitle">Hear from people who took the step to protect their loved ones.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <blockquote>"We'd been putting it off for years. The whole process was so much easier than we expected — everything was explained clearly and we felt completely at ease."</blockquote>
+      <div class="testimonial-author"><div class="author-avatar">SP</div><div class="author-info"><strong>Sarah &amp; Paul</strong>Mirror Wills, London</div></div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <blockquote>"After my husband passed, I realised how important it was. Will4Life made the whole thing painless and I now have real peace of mind for my children's future."</blockquote>
+      <div class="testimonial-author"><div class="author-avatar">MH</div><div class="author-info"><strong>Margaret H.</strong>Will &amp; Power of Attorney, Birmingham</div></div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <blockquote>"Brilliant service from start to finish. They came to our home, explained everything in plain English, and the Will was ready within a week. Highly recommend."</blockquote>
+      <div class="testimonial-author"><div class="author-avatar">JT</div><div class="author-info"><strong>James T.</strong>Estate Planning, Manchester</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="reveal">
+      <div class="section-label">Common Questions</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Everything you might want to know before getting started.</p>
+    </div>
+    <div class="faq-item reveal"><button class="faq-question">How much does it cost to write a Will?<span class="faq-icon">+</span></button><div class="faq-answer"><p>The initial consultation is completely free. We'll provide a clear, fixed-price quote before any work begins — so there are no surprises. Prices depend on the complexity of your circumstances.</p></div></div>
+    <div class="faq-item reveal"><button class="faq-question">How long does the process take?<span class="faq-icon">+</span></button><div class="faq-answer"><p>The consultation usually takes 30–60 minutes. Your Will is typically drafted within a few working days. Most clients have their completed Will within one to two weeks.</p></div></div>
+    <div class="faq-item reveal"><button class="faq-question">Can you come to my home?<span class="faq-icon">+</span></button><div class="faq-answer"><p>Absolutely. We offer consultations at your home, by phone, or by video call — whichever suits you best. There's no extra charge for home visits.</p></div></div>
+    <div class="faq-item reveal"><button class="faq-question">What if I already have a Will?<span class="faq-icon">+</span></button><div class="faq-answer"><p>Life changes mean your Will may need updating. We can review your existing Will and advise whether it still reflects your wishes, or help you create an updated version.</p></div></div>
+    <div class="faq-item reveal"><button class="faq-question">Do I need a Power of Attorney as well?<span class="faq-icon">+</span></button><div class="faq-answer"><p>A Will covers what happens after you pass away. A Lasting Power of Attorney covers what happens if you lose capacity during your lifetime. We strongly recommend having both for complete protection.</p></div></div>
+    <div class="faq-item reveal"><button class="faq-question">Is my information kept confidential?<span class="faq-icon">+</span></button><div class="faq-answer"><p>Yes, completely. We comply fully with UK GDPR and the Data Protection Act 2018. Your documents are stored securely and never shared without your consent.</p></div></div>
+    <div class="faq-item reveal"><button class="faq-question">What's the difference between a Will and a Trust?<span class="faq-icon">+</span></button><div class="faq-answer"><p>A Will sets out your wishes for after you pass away. A Trust allows you to set aside assets with specific rules about how they're distributed. Trusts can protect assets from care fees, reduce tax, or provide for vulnerable family members. We'll explain whether a Trust might be right for you.</p></div></div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="book">
+  <div class="form-text reveal">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title">Book Your Confidential One-to-One Today</h2>
+    <p>Share your details below and we'll be in touch to arrange a private meeting — in person, by phone, or online. No obligation, no pressure.</p>
+    <div class="promise-row"><div class="promise-check">✓</div><p><strong>Completely free</strong> — no charge for the initial appointment</p></div>
+    <div class="promise-row"><div class="promise-check">✓</div><p><strong>Fully confidential</strong> — your details and wishes stay private</p></div>
+    <div class="promise-row"><div class="promise-check">✓</div><p><strong>No obligation</strong> — just clear, honest advice with no pressure</p></div>
+    <div class="promise-row"><div class="promise-check">✓</div><p><strong>Home visits available</strong> — we come to you at no extra cost</p></div>
+  </div>
+  <div class="form-card reveal">
+    <h3>Arrange Your Appointment</h3>
+    <p>We'll get back to you within 24 hours.</p>
+    <form id="leadForm">
+      <div class="form-row">
+        <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="e.g. John" required></div>
+        <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="e.g. Smith" required></div>
+      </div>
+      <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="e.g. john@example.com" required></div>
+      <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" placeholder="e.g. 07700 900 000" required></div>
+      <div class="form-group"><label for="service">Which service are you interested in?</label><select id="service" name="service"><option value="">— Please select —</option><option value="will">Will Writing</option><option value="poa">Power of Attorney</option><option value="trust">Trust Planning &amp; Probate</option><option value="estate">Estate Planning</option><option value="iht">Inheritance Tax Support</option><option value="multiple">Multiple Services</option><option value="unsure">Not sure yet — I'd like advice</option></select></div>
+      <div class="form-group"><label for="contact-pref">Preferred way to meet</label><select id="contact-pref" name="contact-pref"><option value="">— Please select —</option><option value="home">Home visit</option><option value="phone">Phone call</option><option value="video">Video call</option><option value="flexible">I'm flexible</option></select></div>
+      <div class="form-consent"><input type="checkbox" id="consent" name="consent" required><label for="consent">I agree to Will4Life contacting me about my enquiry. See our <a onclick="openPolicy('privacy')">Privacy Policy</a>.</label></div>
+      <button type="submit" class="submit-btn">Book My Free Appointment</button>
+    </form>
+    <p class="form-note">🔒 Your information is secure and will never be shared.</p>
+    <div class="form-success" id="formSuccess"><div class="success-icon">✓</div><h4>Thank You!</h4><p>We've received your details. Our will writer will be in touch within 24 hours to arrange your confidential one-to-one.</p></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <h2>Where There Is a Will,<br>There Is a Way</h2>
+    <p>A simple conversation is all it takes to start protecting the people who matter most to you.</p>
+    <a href="#book" class="final-cta-btn">Book Your Free Consultation</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Will<span>4</span>Life</div>
+  <div class="footer-caption">Securing clarity for your family's future</div>
+  <div class="footer-links">
+    <a href="#book">Book Appointment</a>
+    <a href="#services">Our Services</a>
+    <a href="mailto:hello@will4life.co.uk">hello@will4life.co.uk</a>
+  </div>
+  <div class="footer-policy-links">
+    <a onclick="openPolicy('privacy')">Privacy Policy</a>
+    <a onclick="openPolicy('cookie')">Cookie Policy</a>
+    <a onclick="openPolicy('gdpr')">GDPR Policy</a>
+    <a onclick="openPolicy('data')">Data Protection Policy</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 Will4Life. All rights reserved.</div>
+</footer>
+
+<!-- POLICY MODALS -->
+<div class="policy-modal" id="modal-privacy"><div class="policy-content"><button class="policy-close" onclick="closePolicy('privacy')">&times;</button><h2>Privacy Policy</h2><p class="policy-date">Last updated: 8 March 2026</p><h3>1. Who We Are</h3><p>Will4Life provides professional will writing and estate planning services. We are committed to protecting the privacy of everyone who uses our website and services.</p><h3>2. What We Collect</h3><p>We may collect: your full name, email address, phone number, service preferences, meeting preference, and any information you share during a consultation.</p><h3>3. How We Use It</h3><p>To arrange and carry out your consultation, prepare your documents, contact you about your appointment, keep accurate records, and comply with legal requirements.</p><h3>4. Sharing Your Information</h3><p>We do not sell, rent, or share your data for marketing. We may share information only where required by law or with trusted service providers bound by confidentiality.</p><h3>5. Data Retention</h3><p>Will-related records are retained for a minimum of 6 years. Enquiry data is kept for up to 12 months if you do not proceed.</p><h3>6. Your Rights</h3><p>You can request access, correction, deletion, or restriction of your data. Contact <strong>hello@will4life.co.uk</strong>.</p><h3>7. Contact</h3><p>Questions? Email <strong>hello@will4life.co.uk</strong>.</p></div></div>
+
+<div class="policy-modal" id="modal-cookie"><div class="policy-content"><button class="policy-close" onclick="closePolicy('cookie')">&times;</button><h2>Cookie Policy</h2><p class="policy-date">Last updated: 8 March 2026</p><h3>1. What Are Cookies</h3><p>Small text files stored on your device to help the website function and understand usage.</p><h3>2. Our Cookies</h3><p><strong>Essential cookies</strong> for website functionality. <strong>Analytics cookies</strong> (anonymous) to help us improve. We do not use advertising cookies.</p><h3>3. Managing Cookies</h3><p>You can control cookies through your browser settings. Disabling them may affect website functionality.</p><h3>4. Third-Party Cookies</h3><p>Embedded external content may set their own cookies. Please review their policies.</p><h3>5. Contact</h3><p>Questions? Email <strong>hello@will4life.co.uk</strong>.</p></div></div>
+
+<div class="policy-modal" id="modal-gdpr"><div class="policy-content"><button class="policy-close" onclick="closePolicy('gdpr')">&times;</button><h2>GDPR Policy</h2><p class="policy-date">Last updated: 8 March 2026</p><h3>1. Our Commitment</h3><p>Will4Life complies with UK GDPR and the Data Protection Act 2018. All personal data is processed lawfully, fairly, and transparently.</p><h3>2. Lawful Basis</h3><p>We process data based on: <strong>consent</strong> (form submissions), <strong>contractual necessity</strong> (delivering services), <strong>legal obligation</strong>, and <strong>legitimate interest</strong>.</p><h3>3. Your Rights</h3><p>Right of access, rectification, erasure, restriction, portability, objection, and withdrawal of consent. Contact <strong>hello@will4life.co.uk</strong> — we respond within one month.</p><h3>4. Data Security</h3><p>Data is stored securely in the UK with encryption and access controls.</p><h3>5. Data Breaches</h3><p>We notify the ICO within 72 hours of any breach posing risk to your rights. High-risk breaches are communicated to you directly.</p><h3>6. Supervisory Authority</h3><p>Complaints can be lodged with the ICO at <strong>ico.org.uk</strong> or 0303 123 1113.</p></div></div>
+
+<div class="policy-modal" id="modal-data"><div class="policy-content"><button class="policy-close" onclick="closePolicy('data')">&times;</button><h2>Data Protection Policy</h2><p class="policy-date">Last updated: 8 March 2026</p><h3>1. Purpose</h3><p>This policy sets out how Will4Life manages, processes, and protects personal data.</p><h3>2. Principles</h3><p>Personal data is: processed lawfully and transparently, collected for legitimate purposes, adequate and relevant, accurate, stored only as long as necessary, and processed securely.</p><h3>3. Security Measures</h3><p>Encrypted digital storage, password-protected systems, secure physical storage, regular security reviews, and staff training.</p><h3>4. Retention</h3><p><strong>Enquiry data:</strong> up to 12 months. <strong>Client records:</strong> minimum 6 years. <strong>Financial records:</strong> as required by HMRC.</p><h3>5. Third Parties</h3><p>Trusted processors are bound by data processing agreements and must comply with UK GDPR.</p><h3>6. Concerns</h3><p>Contact <strong>hello@will4life.co.uk</strong> or the ICO at <strong>ico.org.uk</strong>.</p></div></div>
+
+<!-- SCRIPTS -->
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Form
+  document.getElementById('leadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = {
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      service: document.getElementById('service').value,
+      contactPref: document.getElementById('contact-pref').value
+    };
+    console.log('Lead captured:', data);
+    this.style.display = 'none';
+    document.querySelector('.form-card > p').style.display = 'none';
+    document.querySelector('.form-card > h3').style.display = 'none';
+    document.querySelector('.form-note').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const item = this.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(el) { el.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Policy modals
+  function openPolicy(id) { document.getElementById('modal-' + id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closePolicy(id) { document.getElementById('modal-' + id).classList.remove('open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('.policy-modal').forEach(function(modal) {
+    modal.addEventListener('click', function(e) { if (e.target === modal) { modal.classList.remove('open'); document.body.style.overflow = ''; } });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { document.querySelectorAll('.policy-modal.open').forEach(function(m) { m.classList.remove('open'); document.body.style.overflow = ''; }); }
+  });
+</script>
+</body>
+</html>
