@@ -232,7 +232,6 @@
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .submit-btn { width: 100%; padding: 0.95rem; background: var(--sky-deep); color: var(--white); border: none; border-radius: 10px; font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.35s ease; margin-top: 0.5rem; }
   .submit-btn:hover { background: var(--sky-darker); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(106,159,196,0.3); }
-  .submit-btn:disabled { background: var(--text-light); cursor: not-allowed; transform: none; }
   .form-note { text-align: center; font-size: 0.72rem; color: var(--text-light); margin-top: 1rem; }
   .form-consent { display: flex; align-items: flex-start; gap: 0.6rem; margin-top: 0.8rem; margin-bottom: 0.5rem; }
   .form-consent input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--sky-deep); }
@@ -473,23 +472,23 @@
     <div class="promise-row"><div class="promise-check">✓</div><p><strong>Home visits available</strong> — we come to you at no extra cost</p></div>
   </div>
   <div class="form-card reveal">
-    <h3>Arrange Your Appointment</h3>
-    <p>We'll get back to you within 24 hours.</p>
-    
-    <form id="leadForm" action="https://formspree.io/f/your-form-id" method="POST">
-      <div class="form-row">
-        <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="e.g. John" required></div>
-        <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="e.g. Smith" required></div>
-      </div>
-      <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="e.g. john@example.com" required></div>
-      <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" placeholder="e.g. 07700 900 000" required></div>
-      <div class="form-group"><label for="service">Which service are you interested in?</label><select id="service" name="service"><option value="">— Please select —</option><option value="will">Will Writing</option><option value="poa">Power of Attorney</option><option value="trust">Trust Planning &amp; Probate</option><option value="estate">Estate Planning</option><option value="iht">Inheritance Tax Support</option><option value="multiple">Multiple Services</option><option value="unsure">Not sure yet — I'd like advice</option></select></div>
-      <div class="form-group"><label for="contact-pref">Preferred way to meet</label><select id="contact-pref" name="contact-pref"><option value="">— Please select —</option><option value="home">Home visit</option><option value="phone">Phone call</option><option value="video">Video call</option><option value="flexible">I'm flexible</option></select></div>
-      <div class="form-consent"><input type="checkbox" id="consent" name="consent" required><label for="consent">I agree to Will4Life contacting me about my enquiry. See our <a onclick="openPolicy('privacy')">Privacy Policy</a>.</label></div>
-      <button type="submit" class="submit-btn">Book My Free Appointment</button>
-    </form>
-    
-    <p class="form-note">🔒 Your information is secure and will never be shared.</p>
+    <div id="formContainer">
+      <h3>Arrange Your Appointment</h3>
+      <p>We'll get back to you within 24 hours.</p>
+      <form id="leadForm" action="https://formspree.io/f/mykblznj" method="POST">
+        <div class="form-row">
+          <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="e.g. John" required></div>
+          <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="e.g. Smith" required></div>
+        </div>
+        <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="e.g. john@example.com" required></div>
+        <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" placeholder="e.g. 07700 900 000" required></div>
+        <div class="form-group"><label for="service">Which service are you interested in?</label><select id="service" name="service"><option value="">— Please select —</option><option value="will">Will Writing</option><option value="poa">Power of Attorney</option><option value="trust">Trust Planning &amp; Probate</option><option value="estate">Estate Planning</option><option value="multiple">Multiple Services</option><option value="unsure">Not sure yet — I'd like advice</option></select></div>
+        <div class="form-group"><label for="contact-pref">Preferred way to meet</label><select id="contact-pref" name="contact-pref"><option value="">— Please select —</option><option value="home">Home visit</option><option value="phone">Phone call</option><option value="video">Video call</option><option value="flexible">I'm flexible</option></select></div>
+        <div class="form-consent"><input type="checkbox" id="consent" name="consent" required><label for="consent">I agree to Will4Life contacting me about my enquiry. See our <a onclick="openPolicy('privacy')">Privacy Policy</a>.</label></div>
+        <button type="submit" id="submitBtn" class="submit-btn">Book My Free Appointment</button>
+      </form>
+      <p class="form-note">🔒 Your information is secure and will never be shared.</p>
+    </div>
     <div class="form-success" id="formSuccess"><div class="success-icon">✓</div><h4>Thank You!</h4><p>We've received your details. Our will writer will be in touch within 24 hours to arrange your confidential one-to-one.</p></div>
   </div>
 </section>
@@ -543,45 +542,46 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // Form handling updated for Formspree AJAX submission
-  const leadForm = document.getElementById('leadForm');
-  const formSuccess = document.getElementById('formSuccess');
+  // Form Submission via Fetch API (AJAX)
+  const form = document.getElementById('leadForm');
+  const formContainer = document.getElementById('formContainer');
+  const successMessage = document.getElementById('formSuccess');
+  const submitBtn = document.getElementById('submitBtn');
 
-  leadForm.addEventListener('submit', async function(e) {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const submitBtn = this.querySelector('.submit-btn');
-    const formData = new FormData(this);
-
-    // Provide feedback during submission
-    submitBtn.disabled = true;
+    
+    // Change button text to show it's sending
+    const originalBtnText = submitBtn.innerText;
     submitBtn.innerText = 'Sending...';
+    submitBtn.disabled = true;
 
+    const data = new FormData(form);
+    
     try {
-      const response = await fetch(this.action, {
+      const response = await fetch(form.action, {
         method: 'POST',
-        body: formData,
+        body: data,
         headers: {
           'Accept': 'application/json'
         }
       });
 
       if (response.ok) {
-        // Hide form elements and show success message
-        this.style.display = 'none';
-        document.querySelector('.form-card > p').style.display = 'none';
-        document.querySelector('.form-card > h3').style.display = 'none';
-        document.querySelector('.form-note').style.display = 'none';
-        formSuccess.classList.add('show');
+        // Success: Hide form and show message
+        formContainer.style.display = 'none';
+        successMessage.classList.add('show');
       } else {
-        const data = await response.json();
-        alert(data.errors ? data.errors.map(error => error.message).join(", ") : "Oops! There was a problem submitting your form");
+        // Error handling
+        const errorData = await response.json();
+        alert(errorData.errors ? errorData.errors.map(err => err.message).join(", ") : "Oops! There was a problem submitting your form.");
+        submitBtn.innerText = originalBtnText;
         submitBtn.disabled = false;
-        submitBtn.innerText = 'Book My Free Appointment';
       }
     } catch (error) {
-      alert("Oops! There was a problem connecting to the server.");
+      alert("Network error. Please check your connection and try again.");
+      submitBtn.innerText = originalBtnText;
       submitBtn.disabled = false;
-      submitBtn.innerText = 'Book My Free Appointment';
     }
   });
 
