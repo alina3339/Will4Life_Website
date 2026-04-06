@@ -232,6 +232,7 @@
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .submit-btn { width: 100%; padding: 0.95rem; background: var(--sky-deep); color: var(--white); border: none; border-radius: 10px; font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.35s ease; margin-top: 0.5rem; }
   .submit-btn:hover { background: var(--sky-darker); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(106,159,196,0.3); }
+  .submit-btn:disabled { background: var(--text-light); cursor: not-allowed; transform: none; }
   .form-note { text-align: center; font-size: 0.72rem; color: var(--text-light); margin-top: 1rem; }
   .form-consent { display: flex; align-items: flex-start; gap: 0.6rem; margin-top: 0.8rem; margin-bottom: 0.5rem; }
   .form-consent input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--sky-deep); }
@@ -426,7 +427,6 @@
     <div class="service-card reveal"><div class="service-icon">🤝</div><h3>Power of Attorney</h3><p>Choose someone you trust to make decisions on your behalf if you're ever unable to — covering finances, property, and health.</p></div>
     <div class="service-card reveal"><div class="service-icon">🏛️</div><h3>Trust Planning &amp; Probate Support</h3><p>Set up trusts to protect assets and let us guide your family through the probate process with care and clarity.</p></div>
     <div class="service-card reveal"><div class="service-icon">🏡</div><h3>Estate Planning</h3><p>A complete look at your assets, property, and wishes — so everything is organised and your family knows where they stand.</p></div>
-    <!--<div class="service-card reveal"><div class="service-icon">💰</div><h3>Inheritance Tax Support</h3><p>Understand how inheritance tax affects your estate and explore practical ways to reduce the burden on your loved ones.</p></div>-->
   </div>
 </section>
 
@@ -444,31 +444,6 @@
     </div>
   </div>
 </section>
-
-<!--<section class="testimonials-section">
-  <div class="reveal">
-    <div class="section-label">What Our Clients Say</div>
-    <h2 class="section-title">Trusted by Families Across the UK</h2>
-    <p class="section-subtitle">Hear from people who took the step to protect their loved ones.</p>
-  </div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card reveal">
-      <div class="testimonial-stars">★★★★★</div>
-      <blockquote>"We'd been putting it off for years. The whole process was so much easier than we expected — everything was explained clearly and we felt completely at ease."</blockquote>
-      <div class="testimonial-author"><div class="author-avatar">SP</div><div class="author-info"><strong>Sarah &amp; Paul</strong>Mirror Wills, London</div></div>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="testimonial-stars">★★★★★</div>
-      <blockquote>"After my husband passed, I realised how important it was. Will4Life made the whole thing painless and I now have real peace of mind for my children's future."</blockquote>
-      <div class="testimonial-author"><div class="author-avatar">MH</div><div class="author-info"><strong>Margaret H.</strong>Will &amp; Power of Attorney, Birmingham</div></div>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="testimonial-stars">★★★★★</div>
-      <blockquote>"Brilliant service from start to finish. They came to our home, explained everything in plain English, and the Will was ready within a week. Highly recommend."</blockquote>
-      <div class="testimonial-author"><div class="author-avatar">JT</div><div class="author-info"><strong>James T.</strong>Estate Planning, Manchester</div></div>
-    </div>
-  </div>
-</section>-->
 
 <section class="faq-section">
   <div class="faq-inner">
@@ -500,7 +475,8 @@
   <div class="form-card reveal">
     <h3>Arrange Your Appointment</h3>
     <p>We'll get back to you within 24 hours.</p>
-    <form id="leadForm">
+    
+    <form id="leadForm" action="https://formspree.io/f/your-form-id" method="POST">
       <div class="form-row">
         <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="e.g. John" required></div>
         <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="e.g. Smith" required></div>
@@ -512,6 +488,7 @@
       <div class="form-consent"><input type="checkbox" id="consent" name="consent" required><label for="consent">I agree to Will4Life contacting me about my enquiry. See our <a onclick="openPolicy('privacy')">Privacy Policy</a>.</label></div>
       <button type="submit" class="submit-btn">Book My Free Appointment</button>
     </form>
+    
     <p class="form-note">🔒 Your information is secure and will never be shared.</p>
     <div class="form-success" id="formSuccess"><div class="success-icon">✓</div><h4>Thank You!</h4><p>We've received your details. Our will writer will be in touch within 24 hours to arrange your confidential one-to-one.</p></div>
   </div>
@@ -542,6 +519,7 @@
   <div class="footer-copy">&copy; 2026 Will4Life. All rights reserved.</div>
   <div class="footer-copy" style="margin-top: 0.5rem; opacity: 0.6;">
     Powered by <a href="https://www.gitfoundry.co.uk" target="_blank" style="color: rgba(255,255,255,0.45); text-decoration: none;">www.gitfoundry.co.uk</a>
+  </div>
 </footer>
 
 <div class="policy-modal" id="modal-privacy"><div class="policy-content"><button class="policy-close" onclick="closePolicy('privacy')">&times;</button><h2>Privacy Policy</h2><p class="policy-date">Last updated: 8 March 2026</p><h3>1. Who We Are</h3><p>Will4Life provides professional will writing and estate planning services. We are committed to protecting the privacy of everyone who uses our website and services.</p><h3>2. What We Collect</h3><p>We may collect: your full name, email address, phone number, service preferences, meeting preference, and any information you share during a consultation.</p><h3>3. How We Use It</h3><p>To arrange and carry out your consultation, prepare your documents, contact you about your appointment, keep accurate records, and comply with legal requirements.</p><h3>4. Sharing Your Information</h3><p>We do not sell, rent, or share your data for marketing. We may share information only where required by law or with trusted service providers bound by confidentiality.</p><h3>5. Data Retention</h3><p>Will-related records are retained for a minimum of 6 years. Enquiry data is kept for up to 12 months if you do not proceed.</p><h3>6. Your Rights</h3><p>You can request access, correction, deletion, or restriction of your data. Contact <strong>info@will4life.co.uk</strong>.</p><h3>7. Contact</h3><p>Questions? Email <strong>info@will4life.co.uk</strong>.</p></div></div>
@@ -565,23 +543,46 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // Form
-  document.getElementById('leadForm').addEventListener('submit', function(e) {
+  // Form handling updated for Formspree AJAX submission
+  const leadForm = document.getElementById('leadForm');
+  const formSuccess = document.getElementById('formSuccess');
+
+  leadForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const data = {
-      firstName: document.getElementById('firstName').value,
-      lastName: document.getElementById('lastName').value,
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      service: document.getElementById('service').value,
-      contactPref: document.getElementById('contact-pref').value
-    };
-    console.log('Lead captured:', data);
-    this.style.display = 'none';
-    document.querySelector('.form-card > p').style.display = 'none';
-    document.querySelector('.form-card > h3').style.display = 'none';
-    document.querySelector('.form-note').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
+    const submitBtn = this.querySelector('.submit-btn');
+    const formData = new FormData(this);
+
+    // Provide feedback during submission
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Sending...';
+
+    try {
+      const response = await fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        // Hide form elements and show success message
+        this.style.display = 'none';
+        document.querySelector('.form-card > p').style.display = 'none';
+        document.querySelector('.form-card > h3').style.display = 'none';
+        document.querySelector('.form-note').style.display = 'none';
+        formSuccess.classList.add('show');
+      } else {
+        const data = await response.json();
+        alert(data.errors ? data.errors.map(error => error.message).join(", ") : "Oops! There was a problem submitting your form");
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Book My Free Appointment';
+      }
+    } catch (error) {
+      alert("Oops! There was a problem connecting to the server.");
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Book My Free Appointment';
+    }
   });
 
   // FAQ accordion
